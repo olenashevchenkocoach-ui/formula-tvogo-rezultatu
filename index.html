@@ -1048,7 +1048,6 @@ function submit(){
   setBad(ph,phE,!pOk);setBad(em,emE,!eOk);
   if(!pOk){ph.focus();return}
   if(!eOk){em.focus();return}
-  if(hp.value){return}
   if(!APPS_SCRIPT_URL){
     showMsg("Форму ще не підключено до збереження заявок. Дані не збережено, перехід до оплати не виконано. Напиши власниці сайту, щоб завершила налаштування.");
     return;
