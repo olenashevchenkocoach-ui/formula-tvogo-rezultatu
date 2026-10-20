@@ -927,8 +927,8 @@ body.lm-open{overflow:hidden}
 </div></div>
 <script>
 /* НАЛАШТУВАННЯ */
-var PAY_URL = "";        // посилання на сторінку оплати (https://...) — вставити, коли буде готове
-var APPS_SCRIPT_URL = ""; // URL веб-застосунку Google Apps Script (закінчується на /exec)
+var PAY_URL = "https://secure.wayforpay.com/button/b4af500b9d91f"; // посилання WayForPay на оплату 365 грн
+var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw89Cg_WDWj0sQLDREsrvn-2Ld3DPQIj8jMtbT8BZDsHqe9HkRa8Nm-Y7OvWH-ZPhRnPQ/exec"; // URL веб-застосунку Google Apps Script (закінчується на /exec)
 var DEADLINE = "";       // за бажанням: реальна дата, напр. "2026-11-01T23:59:00+02:00". Порожньо = таймер на TIMER_MIN хвилин для кожного відвідувача
 var TIMER_MIN = 15;
 
@@ -1002,7 +1002,7 @@ function phoneOk(v){return /^380\d{9}$/.test(digits(v))}
 function emailOk(v){v=(v||"").trim();return v.length<=254&&/^[A-Za-z0-9._%+\-]+@[A-Za-z0-9](?:[A-Za-z0-9\-]*[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9\-]*[A-Za-z0-9])?)*\.[A-Za-z]{2,}$/.test(v)}
 
 function setBad(inp,errEl,bad){inp.classList.toggle("bad",bad);errEl.classList.toggle("on",bad);inp.setAttribute("aria-invalid",bad?"true":"false")}
-function showMsg(t){msg.textContent=t;msg.classList.add("on")}
+function showMsg(t){msg.textContent=t;msg.classList.add("on");try{msg.scrollIntoView({block:"nearest",behavior:"smooth"})}catch(e){}}
 function clearMsg(){msg.textContent="";msg.classList.remove("on");retry.classList.remove("on")}
 function setBusy(b){busy=b;btn.disabled=b;btn.textContent=b?"Зберігаємо…":LABEL}
 
@@ -1077,6 +1077,7 @@ function submit(){
   });
 }
 form.addEventListener("submit",function(e){e.preventDefault();submit()});
+window.addEventListener("pageshow",function(e){if(e.persisted){setBusy(false)}});
 retry.addEventListener("click",submit);
 })();
 </script>
