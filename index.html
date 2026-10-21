@@ -760,6 +760,51 @@ footer{padding-top:16px}.fw .soc{margin:0}
 body.lm-open{overflow:hidden}
 @media(max-width:360px){.lm-box{padding:30px 16px 20px;border-radius:22px}}
 </style>
+<style id="consent-css">
+.cb{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:150;display:none;max-width:560px;margin:0 auto;padding:14px 16px;background:#F9F5EE;color:#2E1F1B;border:1px solid rgba(122,46,46,.28);border-radius:18px;box-shadow:0 10px 34px rgba(46,31,27,.28);font:500 14px/1.45 'Manrope','Helvetica Neue',Arial,sans-serif}
+.cb.on{display:block}
+.cb p{margin:0 0 10px}
+.cb a{color:#7A2E2E;font-weight:700}
+.cb .cbr{display:flex;gap:10px}
+.cb button{flex:1;min-height:44px;border-radius:999px;font:700 14px/1 'Manrope',Arial,sans-serif;cursor:pointer;padding:0 12px}
+.cb .y{background:#7A2E2E;color:#fff;border:1.5px solid #7A2E2E}
+.cb .n{background:transparent;color:#7A2E2E;border:1.5px solid #7A2E2E}
+</style>
+<script id="meta-pixel-consent">
+/* Meta Pixel: вантажиться ТІЛЬКИ після згоди відвідувача на маркетингові cookie. Телефон і email у Pixel не передаються. */
+(function(){
+var ID="1173415038742062",KEY="ftr_marketing_consent",loaded=false;
+function get(){try{return localStorage.getItem(KEY)}catch(e){return null}}
+function set(v){try{localStorage.setItem(KEY,v)}catch(e){}}
+function loadPixel(){
+  if(loaded)return;loaded=true;
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('set','autoConfig',false,ID);
+  fbq('init',ID);
+  fbq('track','PageView');
+}
+/* Lead: викликається сайтом лише після підтвердженого збереження заявки; без параметрів (без телефону/email) */
+window.ftrTrackLead=function(){
+  if(loaded&&window.fbq){fbq('track','Lead');return true}
+  return false;
+};
+if(get()==="granted")loadPixel();
+document.addEventListener("DOMContentLoaded",function(){
+  var bar=document.getElementById("consentBar");if(!bar)return;
+  function pad(){document.body.style.marginBottom=bar.classList.contains("on")?(bar.offsetHeight+24)+"px":""}
+  if(get()===null){bar.classList.add("on");pad();window.addEventListener("resize",pad)}
+  var y=document.getElementById("consentYes"),n=document.getElementById("consentNo");
+  if(y)y.addEventListener("click",function(){set("granted");bar.classList.remove("on");pad();loadPixel()});
+  if(n)n.addEventListener("click",function(){set("denied");bar.classList.remove("on");pad()});
+});
+})();
+</script>
 </head>
 <body>
 <svg aria-hidden="true" height="0" style="position:absolute" width="0"><symbol id="sil" viewbox="0 0 200 220"><circle cx="100" cy="70" r="42"></circle><path d="M10 220c0-62 40-92 90-92s90 30 90 92z"></path></symbol></svg>
@@ -827,23 +872,31 @@ body.lm-open{overflow:hidden}
 <div class="soc"><a aria-label="Instagram" href="https://www.instagram.com/olena.shevchenko.coach/" rel="noopener noreferrer" target="_blank"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" viewbox="0 0 24 24"><rect height="18" rx="5" width="18" x="3" y="3"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" fill="currentColor" r=".9"></circle></svg></a><a aria-label="Telegram" href="https://t.me/olenashevchenkocoach" rel="noopener noreferrer" target="_blank"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" viewbox="0 0 24 24"><path d="M21.5 3L2.5 10.4l6.2 2.3L10.8 19l3.2-3.7 4.8 3.7z"></path><path d="M8.7 12.7L21.5 3"></path></svg></a><a aria-label="Facebook" href="https://www.facebook.com/SevchenkoOlena/" rel="noopener noreferrer" target="_blank"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" viewbox="0 0 24 24"><path d="M14 8.5V7a1 1 0 0 1 1-1h2.5V2.5H15a4 4 0 0 0-4 4v2H8V12h3v9.5h3V12h3l.5-3.5z"></path></svg></a></div></div>
 </div></section>
 <!-- БЛОК 7 -->
+<style>
+/* program dates */
+.les .card>.bw{position:absolute;left:0;top:16px;display:flex;align-items:center;gap:8px;max-width:100%}
+.les .card>.bw .badge{position:static;top:auto;left:auto;flex:none}
+.les .card>.bw .bd{display:inline-block;background:var(--blue);color:var(--brown);font-family:var(--b);font-weight:700;font-size:12px;line-height:1;letter-spacing:.1em;padding:8px 12px;border-radius:10px;white-space:nowrap}
+.web .wd{display:block;text-align:center;font-family:var(--b);font-weight:700;font-size:15px;line-height:1.2;letter-spacing:.1em;color:var(--brown);margin:8px 0 2px;white-space:nowrap}
+@media(max-width:420px){.les .card>.bw{gap:6px}.les .card>.bw .bd{font-size:11px;padding:8px 10px}.web .wd{font-size:14px}}
+</style>
 <section class="cr" id="programa"><div class="w">
 <div class="phead"><p class="eyebrow">Програма практикуму</p><h2>3 уроки + <span class="sc">2 практичні онлайн-лекції</span></h2><p class="lead">Від хаосу у власній справі — до чіткого фокусу, системи дій і рішень, які допомагають рухатися до зростання доходу.</p></div>
 <div class="les" style="margin-top:36px">
-<div class="card"><span class="badge">1 урок</span><div><h3>«Де зараз губиться мій результат?»</h3><dl>
+<div class="card"><span class="bw"><span class="badge">1 урок</span><span class="bd">09.11</span></span><div><h3>«Де зараз губиться мій результат?»</h3><dl>
 <div><dt>Що зробиш</dt><dd>За авторською практикою «Карта моєї справи» перевіриш п’ять ключових зон: себе й власні ресурси, продукт, клієнтів, просування і продажі. Подивишся на факти, а не лише на відчуття, що «нічого не працює».</dd></div>
 <div><dt>Що отримаєш</dt><dd>Визначити одну-дві зони, які потребують найбільшої уваги, і зрозумієш, що перевірити насамперед.</dd></div>
 <div><dt>Як це допоможе доходу</dt><dd>Замість розпорошення сил зосередиш увагу на тому, що потенційно найбільше впливає на результат своєї справи.</dd></div></dl></div></div>
-<div class="card"><span class="badge">2 урок</span><div><h3>«Що я не помічаю у своїй ситуації?»</h3><dl>
+<div class="card"><span class="bw"><span class="badge">2 урок</span><span class="bd">10.11</span></span><div><h3>«Що я не помічаю у своїй ситуації?»</h3><dl>
 <div><dt>Що зробиш</dt><dd>За практикою «Точка зупинки» дослідиш, чому важливі дії залишаються невиконаними, навіть коли знаєш, що потрібно робити. Відділиш факти від припущень і подивишся на ситуацію під іншим кутом.</dd></div>
 <div><dt>Що отримаєш</dt><dd>Сформулюєш можливу причину зупинки та конкретний спосіб перевірити її на практиці.</dd></div>
 <div><dt>Як це допоможе доходу</dt><dd>Зможеш помічати перешкоди, через які відкладаєш важливі для свого бізнесу дії — просування, пропозиції клієнтам, продажі чи завершення розпочатого.</dd></div></dl></div></div>
-<div class="card web"><p class="eyebrow">Практичний ефір</p><h3>«Я знаю, що потрібно робити. Чому ж я зупиняюся?»</h3><p>Розберемо, що відбувається між рішенням і дією, як помітити повторювані реакції, внутрішні перешкоди та власні ресурси.</p></div>
-<div class="card"><span class="badge">3 урок</span><div><h3>«Один фокус замість десяти напрямків»</h3><dl>
+<div class="card web"><p class="eyebrow">Практичний ефір</p><span class="wd">11.11 • 19:00</span><h3>«Я знаю, що потрібно робити. Чому ж я зупиняюся?»</h3><p>Розберемо, що відбувається між рішенням і дією, як помітити повторювані реакції, внутрішні перешкоди та власні ресурси.</p></div>
+<div class="card"><span class="bw"><span class="badge">3 урок</span><span class="bd">12.11</span></span><div><h3>«Один фокус замість десяти напрямків»</h3><dl>
 <div><dt>Що зробиш</dt><dd>За практикою «1–3–7» визначиш один головний пріоритет, три конкретні дії на сім днів і справи, від яких свідомо відмовишся на цей період.</dd></div>
 <div><dt>Що отримаєш</dt><dd>Власний план на тиждень, перший крок на найближчі 24 години та просту перевірку «планувала → зробила → який отримала результат».</dd></div>
 <div><dt>Як це допоможе доходу</dt><dd>Замість хаотичної зайнятості почнеш вибудовувати систему дій, пов’язаних із результатом бізнесу, й коригувати її за фактами.</dd></div></dl></div></div>
-<div class="card web"><p class="eyebrow">Практичний ефір</p><h3>«Чому є план, але немає <span class="nw">стабільного результату?»</span></h3><p>Розберемо шлях від точки А до точки Б:<br/>вузьке місце → пріоритет → стратегія → дії → контроль → корекція.</p></div>
+<div class="card web"><p class="eyebrow">Практичний ефір</p><span class="wd">13.11 • 19:00</span><h3>«Чому є план, але немає <span class="nw">стабільного результату?»</span></h3><p>Розберемо шлях від точки А до точки Б:<br/>вузьке місце → пріоритет → стратегія → дії → контроль → корекція.</p></div>
 </div>
 <p class="res"><b>Результат після практикуму:</b> ти переходиш від «роблю багато, але не розумію, що дає результат» до ясного бачення своєї ситуації, одного пріоритету й плану дій на сім днів. Це основа для системної роботи та зростання доходу — без обіцянки миттєвого збільшення заробітку.</p>
 <p class="ctr">Після кожного уроку — коротка практика та результат, який можна перевірити конкретною дією.</p>
@@ -909,6 +962,10 @@ body.lm-open{overflow:hidden}
 <p><a href="oferta.html">Публічна оферта</a> · <a href="polityka.html">Політика конфіденційності</a></p>
 </div></footer>
 <a class="fab" data-pay="" href="#leadModal" aria-haspopup="dialog">Приєднатися зі знижкою −70%</a>
+<div class="cb" id="consentBar" role="region" aria-label="Згода на файли cookie">
+<p>Ми використовуємо Meta Pixel, щоб вимірювати ефективність реклами. Дозволити маркетингові файли cookie? <a href="polityka.html">Докладніше</a></p>
+<div class="cbr"><button type="button" class="n" id="consentNo">Відхилити</button><button type="button" class="y" id="consentYes">Дозволити</button></div>
+</div>
 <div class="lm" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="lmTitle" aria-hidden="true">
 <div class="lm-box">
 <a class="lm-x" href="#top" aria-label="Закрити" id="lmClose" role="button">×</a>
@@ -1067,7 +1124,8 @@ function submit(){
       return;
     }
     btn.textContent="Готово! Переходимо до оплати…";
-    window.location.href=PAY_URL;
+    var tracked=false;try{tracked=!!(window.ftrTrackLead&&window.ftrTrackLead())}catch(e){}
+    setTimeout(function(){window.location.href=PAY_URL},tracked?350:0);
   })
   .catch(function(){
     clearTimeout(tm);setBusy(false);
