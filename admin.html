@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>Службова сторінка</title>
+<style>
+body{margin:0;background:#F9F5EE;color:#2E1F1B;font:400 16px/1.5 Manrope,Arial,sans-serif;padding:20px}
+.w{max-width:640px;margin:0 auto}h1{font:700 26px Georgia,serif;color:#5E2222}
+label{display:block;font-weight:600;margin:16px 0 6px}
+input{width:100%;padding:14px;border:1px solid rgba(46,31,27,.25);border-radius:12px;font:inherit;background:#fff}
+button{margin-top:12px;padding:14px 20px;border:0;border-radius:999px;background:#7A2E2E;color:#fff;font:600 15px Manrope,Arial,sans-serif;cursor:pointer}
+button.alt{background:#EFE5DA;color:#7A2E2E}
+pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid rgba(46,31,27,.15);border-radius:12px;padding:14px;margin-top:18px}
+</style></head><body><div class="w">
+<h1>Службова сторінка</h1>
+<label for="k">Ключ доступу (ADMIN_KEY)</label><input id="k" type="password" autocomplete="off">
+<button class="alt" id="h" type="button">Перевірити налаштування</button>
+<label for="o">Номер замовлення (з кабінету WayForPay)</label><input id="o" type="text" autocomplete="off" placeholder="FTR-…">
+<button id="i" type="button">Видати нове одноразове запрошення</button>
+<pre id="out">Результат з’явиться тут.</pre>
+</div>
+<script>
+function call(body){
+  var out=document.getElementById('out');out.textContent='Зачекайте…';
+  fetch('/api/admin',{method:'POST',headers:{'Content-Type':'application/json','x-admin-key':document.getElementById('k').value},body:JSON.stringify(body)})
+  .then(function(r){return r.json()}).then(function(d){out.textContent=JSON.stringify(d,null,2)})
+  .catch(function(e){out.textContent='Помилка: '+e.message});
+}
+document.getElementById('h').onclick=function(){call({action:'health'})};
+document.getElementById('i').onclick=function(){call({action:'invite',order:document.getElementById('o').value})};
+</script></body></html>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="only light">
+<title>Оплата — Формула твого результату</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--brown:#7A2E2E;--brown2:#5E2222;--cream:#F9F5EE;--blue:#EFE5DA;--ink:#2E1F1B;--line:rgba(46,31,27,.14);
+--d:'Manrope','Helvetica Neue',Arial,sans-serif;--s:'Playfair Display',Georgia,'Times New Roman',serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%}
+body{margin:0;background:var(--cream);color:var(--ink);font:400 clamp(16px,.55vw + 13.5px,19px)/1.5 var(--d);-webkit-font-smoothing:antialiased;display:flex;align-items:center;justify-content:center;padding:24px 18px}
+.card{width:100%;max-width:560px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:clamp(26px,5vw,44px);text-align:center;box-shadow:0 10px 40px rgba(94,34,34,.07)}
+.tag{display:inline-block;background:var(--blue);color:var(--brown);font:700 12px/1 var(--d);letter-spacing:.1em;text-transform:uppercase;padding:9px 14px;border-radius:10px;margin-bottom:18px}
+h1{font:700 clamp(26px,5.5vw,36px)/1.15 var(--s);margin:0 0 14px;color:var(--brown2)}
+p{margin:0 0 14px}
+.muted{font-size:.9em;opacity:.78}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:58px;padding:0 24px;border-radius:999px;background:var(--brown);color:#fff;font:600 clamp(16px,2vw,19px)/1.1 var(--d);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;margin-top:18px}
+.btn:active{background:var(--brown2)}
+.btn.alt{background:var(--blue);color:var(--brown)}
+.spin{width:38px;height:38px;border-radius:50%;border:4px solid var(--blue);border-top-color:var(--brown);margin:6px auto 18px;animation:r 1s linear infinite}
+@keyframes r{to{transform:rotate(360deg)}}
+.code{display:inline-block;background:var(--blue);padding:4px 10px;border-radius:8px;font-weight:600;word-break:break-all}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main class="card" id="app" aria-live="polite">
+  <div id="v-load"><div class="spin" aria-hidden="true"></div><h1>Перевіряємо оплату…</h1><p>Це займає кілька секунд. Не закривайте сторінку.</p></div>
+
+  <div id="v-ready" hidden>
+    <span class="tag">Оплату підтверджено</span>
+    <h1>Дякуємо! Ти в практикумі</h1>
+    <p>Натисни кнопку, щоб увійти в закритий чат практикуму. Це твоє особисте посилання: воно спрацює один раз, тому не пересилай його нікому.</p>
+    <a class="btn" id="invite" href="#" rel="noopener">Увійти в чат практикуму</a>
+    <p class="muted" style="margin-top:22px">Також відкрий бота й натисни START, щоб отримати привітання та розклад.</p>
+    <a class="btn alt" id="bot" href="#" rel="noopener">Відкрити Telegram-бота</a>
+  </div>
+
+  <div id="v-wait" hidden>
+    <div class="spin" aria-hidden="true"></div>
+    <h1>Оплата ще обробляється</h1>
+    <p>Банк підтверджує платіж. Сторінка оновиться сама, коли все буде готово.</p>
+  </div>
+
+  <div id="v-failed" hidden>
+    <h1>Оплата не завершилась</h1>
+    <p>Гроші не списано, або платіж не пройшов. Спробуй ще раз.</p>
+    <a class="btn" href="/">Повернутися на сайт</a>
+  </div>
+
+  <div id="v-help" hidden>
+    <h1>Потрібна невелика допомога</h1>
+    <p id="help-text">Ми не бачимо замовлення в цьому браузері. Якщо ти вже оплатила, напиши нам у підтримку: ми швидко надішлемо особисте запрошення вручну.</p>
+    <p id="help-order" class="muted" hidden>Номер замовлення: <span class="code" id="order-no"></span></p>
+    <a class="btn" id="support" href="#" hidden rel="noopener">Написати в підтримку</a>
+    <a class="btn alt" href="/">На сайт</a>
+  </div>
+</main>
+
+<script>
+(function(){
+  var views=['load','ready','wait','failed','help'],tries=0,MAX=60,timer=null;
+  function show(n){views.forEach(function(v){document.getElementById('v-'+v).hidden=(v!==n)})}
+  function help(d,msg){
+    show('help');
+    if(msg)document.getElementById('help-text').textContent=msg;
+    if(d&&d.order){document.getElementById('order-no').textContent=d.order;document.getElementById('help-order').hidden=false}
+    if(d&&d.support_url){var a=document.getElementById('support');a.href=d.support_url;a.hidden=false}
+  }
+  if(/[?&]s=failed/.test(location.search)){show('failed');return}
+  function poll(){
+    tries++;
+    fetch('/api/session',{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.json()}).then(function(d){
+      if(d.state==='ready'){
+        document.getElementById('invite').href=d.invite_url;
+        document.getElementById('bot').href=d.bot_url;
+        show('ready');
+      }else if(d.state==='pending'){
+        show(tries>2?'wait':'load');
+        if(tries<MAX)timer=setTimeout(poll,3000);
+        else help(d,'Оплата ще не підтвердилась. Якщо гроші списано, напиши нам у підтримку: ми надішлемо запрошення вручну.');
+      }else if(d.state==='failed'){show('failed')}
+      else if(d.state==='refunded'){help(d,'Цей платіж повернуто, тому доступ не видається. Якщо це помилка, напиши нам у підтримку.')}
+      else{help(d)}
+    }).catch(function(){
+      if(tries<MAX)timer=setTimeout(poll,4000);else help(null,'Не вдалося перевірити оплату. Напиши нам у підтримку: ми надішлемо запрошення вручну.');
+    });
+  }
+  poll();
+})();
+</script>
+</body>
+</html>
