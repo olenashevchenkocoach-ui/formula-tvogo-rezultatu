@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
           TELEGRAM_CHAT_ID: !!c.tgChat, ADMIN_KEY: true,
         },
         settings: { mode: c.mode, site: c.site, domain: c.domain, amount: c.amount, currency: c.currency, inviteHours: c.inviteHours },
-        urls: { pay: `${c.site}/api/pay`, service: `${c.site}/api/wfp-service`, return: `${c.site}/api/wfp-return` },
+        urls: { pay: `${c.site}/api/pay`, service: `${c.site}/api/wfp-service`, return: `${c.site}/api/wfp-return`, buttonReturn: `${c.site}/api/btn-return` },
       };
       try { await L.redis(['SET', 'ftr:health', '1', 'EX', 60]); out.redis = (await L.redis(['GET', 'ftr:health'])) === '1' ? 'ok' : 'fail'; }
       catch (e) { out.redis = 'ПОМИЛКА: ' + e.message; }
@@ -45,6 +45,25 @@ module.exports = async (req, res) => {
         }
       }
       return L.json(res, 200, out);
+    }
+
+    if (d.action === 'check') {
+      // Лише читання: питає WayForPay про статус замовлення. Нічого не створює і не видає.
+      const ref = String(d.order || '').trim();
+      if (!/^[A-Za-z0-9_.\-]{4,64}$/.test(ref)) return L.json(res, 400, { error: 'bad_order_number' });
+      const r = await L.checkStatus(c, ref, null);
+      const x = r.data || {};
+      return L.json(res, 200, {
+        order: ref,
+        confirmed: !!r.ok,
+        reason: r.ok ? 'Approved' : r.reason,
+        status: x.transactionStatus || null,
+        amount: x.amount === undefined ? null : x.amount,
+        currency: x.currency || null,
+        reasonCode: x.reasonCode === undefined ? null : x.reasonCode,
+        amountMatchesPrice: x.amount === undefined ? null : L.amountMatches(x.amount, c.amount, x.currency, c.currency),
+        wayforpaySignatureOk: r.reason === 'wfp_bad_signature' ? false : (r.reason === 'wfp_unreachable' || r.reason === 'wfp_no_status' ? null : true),
+      });
     }
 
     if (d.action === 'invite') {

@@ -14,6 +14,7 @@ pre{white-space:pre-wrap;word-break:break-word;background:#fff;border:1px solid 
 <label for="k">Ключ доступу (ADMIN_KEY)</label><input id="k" type="password" autocomplete="off">
 <button class="alt" id="h" type="button">Перевірити налаштування</button>
 <label for="o">Номер замовлення (з кабінету WayForPay)</label><input id="o" type="text" autocomplete="off" placeholder="FTR-…">
+<button class="alt" id="c" type="button">Перевірити платіж (нічого не створює)</button>
 <button id="i" type="button">Видати нове одноразове запрошення</button>
 <pre id="out">Результат з’явиться тут.</pre>
 </div>
@@ -25,5 +26,6 @@ function call(body){
   .catch(function(e){out.textContent='Помилка: '+e.message});
 }
 document.getElementById('h').onclick=function(){call({action:'health'})};
+document.getElementById('c').onclick=function(){call({action:'check',order:document.getElementById('o').value})};
 document.getElementById('i').onclick=function(){call({action:'invite',order:document.getElementById('o').value})};
 </script></body></html>
