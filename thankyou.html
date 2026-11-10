@@ -26,3 +26,93 @@
     color: var(--brown);
     font-family: "Jost", "Helvetica Neue", Arial, sans-serif;
     font-size: 18px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+  .wrap {
+    width: 100%;
+    max-width: 640px;
+    text-align: center;
+  }
+  .check {
+    width: 112px;
+    height: 112px;
+    margin: 0 auto 32px;
+    border-radius: 50%;
+    background: var(--beige);
+    border: 2px solid var(--burgundy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .check svg { width: 52px; height: 52px; }
+  .status {
+    margin: 0 0 14px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--burgundy);
+  }
+  h1 {
+    margin: 0 0 22px;
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-weight: 700;
+    font-size: clamp(36px, 7vw, 52px);
+    line-height: 1.12;
+    color: var(--burgundy);
+  }
+  .lead { margin: 0 0 36px; font-size: 19px; }
+  .note {
+    background: var(--beige);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 28px 24px;
+    margin: 0 0 40px;
+    font-weight: 600;
+    font-size: 20px;
+  }
+  .btn {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 19px;
+    padding: 20px 44px;
+    border-radius: 6px;
+    transition: background .2s;
+  }
+  .btn:hover { background: #622424; }
+  .btn:focus-visible { outline: 3px solid var(--brown); outline-offset: 3px; }
+  @media (max-width: 480px) {
+    body { font-size: 17px; padding: 32px 16px; }
+    .check { width: 92px; height: 92px; margin-bottom: 26px; }
+    .check svg { width: 44px; height: 44px; }
+    .lead { font-size: 18px; }
+    .note { font-size: 18px; padding: 22px 18px; }
+    .btn { display: block; padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="check" aria-hidden="true">
+      <svg viewBox="0 0 52 52" fill="none" stroke="#7A2E2E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 27l10 10 20-22"/>
+      </svg>
+    </div>
+    <p class="status">Оплату прийнято</p>
+    <h1>Дякуємо за покупку!</h1>
+    <p class="lead">Ваш платіж успішно оброблено! Вітаємо вас на практикумі!</p>
+    <div class="note">Щоб долучитися до практикуму натисніть кнопку нижче!</div>
+    <a class="btn" href="https://t.me/formula_rezultatu_bot">Долучитися до практикуму</a>
+  </main>
+</body>
+</html>
+
