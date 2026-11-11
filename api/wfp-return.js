@@ -5,13 +5,13 @@ const L = require('../lib/ftr.js');
 
 module.exports = async (req, res) => {
   const c = L.cfg();
-  let target = '/thanks.html';
+  let target ='/thankyou.html'
   try {
     const d = await L.readBody(req);
     const ref = String(d.orderReference || '');
     if (L.validRef(ref) && c.secret && String(d.merchantAccount) === String(c.account) && L.responseSignatureOk(c, d)) {
       res.setHeader('Set-Cookie', L.setOrderCookie(ref));
-      if (d.transactionStatus && d.transactionStatus !== 'Approved') target = '/thanks.html?s=failed';
+      if (d.transactionStatus && d.transactionStatus !== 'Approved') target = '/thankyou.html?s=failed'
     }
   } catch (e) { console.error('wfp-return', e && e.message); }
   res.statusCode = 303;
