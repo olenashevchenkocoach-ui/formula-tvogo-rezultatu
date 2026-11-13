@@ -99,6 +99,23 @@
     .btn { display: block; padding: 20px 16px; }
   }
 </style>
+<script id="meta-pixel">
+/* Meta Pixel: той самий піксель, що й на головній сторінці. PageView + Purchase (296 грн). Телефон і email не передаються. */
+(function(){
+var ID="1173415038742062";
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('set','autoConfig',false,ID);
+fbq('init',ID);
+fbq('track','PageView');
+fbq('track','Purchase',{value:296,currency:'UAH'});
+})();
+</script>
 </head>
 <body>
   <main class="wrap">
@@ -115,4 +132,3 @@
   </main>
 </body>
 </html>
-
