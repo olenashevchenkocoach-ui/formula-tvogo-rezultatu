@@ -113,7 +113,11 @@ s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebo
 fbq('set','autoConfig',false,ID);
 fbq('init',ID);
 fbq('track','PageView');
-fbq('track','Purchase',{value:296,currency:'UAH'});
+/* Purchase відправляємо лише якщо в адресі є номер підтвердженого замовлення (?o=...).
+   Той самий номер сервер передає в Meta як event_id, тому Meta об'єднує дві події в одну покупку. */
+var m=/[?&]o=([A-Za-z0-9_.\-]{4,64})(&|$)/.exec(location.search);
+var bad=/[?&]s=(failed|check)(&|$)/.test(location.search);
+if(m&&!bad){fbq('track','Purchase',{value:296,currency:'UAH'},{eventID:m[1]});}
 })();
 </script>
 </head>
