@@ -44,7 +44,7 @@ module.exports = async (req, res) => {
       }
       if (!r.ok) console.error('btn-return: check_status unavailable, trusting signed return', ref, r.reason);
       try { await L.redis(['SET', `ftr:btnpaid:${ref}`, String(Date.now()), 'NX', 'EX', 90 * L.DAY]); } catch (e) { /* журнал необов’язковий */ }
-      return go(res, PAGE, P.makeCookie(c, ref));
+      return go(res, PAGE + '?o=' + encodeURIComponent(ref), P.makeCookie(c, ref));
     }
 
     // Діагностика без значень: лише метод, тип запиту й назви полів
@@ -65,7 +65,7 @@ module.exports = async (req, res) => {
     try { first = await L.redis(['SET', `ftr:btnclaim:${ref}`, String(Date.now()), 'NX', 'EX', 90 * L.DAY]); }
     catch (e) { first = null; }                                  // без Redis цей шлях закритий
     if (first !== 'OK') { console.error('btn-return: unsigned path, order already used or no storage', ref); return go(res, PAGE + '?s=check'); }
-    return go(res, PAGE, P.makeCookie(c, ref));
+    return go(res, PAGE + '?o=' + encodeURIComponent(ref), P.makeCookie(c, ref));
   } catch (e) {
     console.error('btn-return error', e && e.message);
     return go(res, PAGE + '?s=check');
