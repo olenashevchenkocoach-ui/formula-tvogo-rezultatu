@@ -1270,7 +1270,8 @@ retry.addEventListener("click",submit);
 }
 @media(max-width:899px){
  .hN-grid{column-gap:6px}
- .hN-ph{transform:translateY(-16px) scale(1.16);transform-origin:right bottom}
+ .hN-ph{transform:none;position:relative;align-self:stretch;min-height:0}
+ .hN-ph img{position:absolute;left:0;right:0;bottom:0;top:-38px;width:100%;height:calc(100% + 38px);object-fit:cover;object-position:60% 100%}
  .hN-sub{position:relative;z-index:3}
  .hN-sub{grid-row:2 / span 2;align-self:center;margin:0;padding:clamp(24px,7vw,44px) 0}
  .hN-plate{margin-top:0}
