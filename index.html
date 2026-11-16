@@ -1258,11 +1258,11 @@ retry.addEventListener("click",submit);
 .heroN .hN-p{margin:0 auto;text-align:center}
 .hN-plate{margin-top:clamp(28px,8.5vw,48px)}
 /* Вужчі, компактніші літери заголовка → більше місця для фото */
-.heroN .hN-o{letter-spacing:-.035em;word-spacing:-.22em;transform:scaleX(.86);transform-origin:left center}
-.heroN .hN-o b,.heroN .hN-o .cal.c1{letter-spacing:-.035em}
+.heroN .hN-o{letter-spacing:.02em;word-spacing:-.22em;transform:scaleX(.86);transform-origin:left center}
+.heroN .hN-o b,.heroN .hN-o .cal.c1{letter-spacing:.02em}
 /* «Від» і «до» трохи менші, з більшим проміжком до слів */
-.heroN .hN-o .cal.c1{font-size:.72em;margin:0 .3em 0 0}
-.heroN .hN-o b.hN-do{font-size:.72em;margin:0 .3em 0 0}
+.heroN .hN-o .cal.c1{font-size:.84em;margin:0 .3em 0 0}
+.heroN .hN-o b.hN-do{font-size:.84em;margin:0 .3em 0 0}
 
 @media(max-width:899px){
  .hN-grid{grid-template-columns:minmax(0,1fr) 56%;grid-template-areas:"head ph" "sub ph" "fill ph" "plate plate" "bonus bonus" "cta cta";grid-template-rows:auto auto 1fr auto auto auto;row-gap:6px}
@@ -1270,7 +1270,9 @@ retry.addEventListener("click",submit);
 }
 @media(max-width:899px){
  .hN-grid{column-gap:6px}
- .heroN .hN-o{font-size:clamp(22px,7.7vw,44px);width:125%;text-align:center;transform:scaleX(.8);transform-origin:left center;line-height:1.08}
+ .hN-ph{transform:translateY(-16px) scale(1.16);transform-origin:right bottom}
+ .hN-sub{position:relative;z-index:3}
+ .heroN .hN-o{font-size:clamp(23px,8vw,45px);width:125%;text-align:center;transform:scaleX(.8);transform-origin:left center;line-height:1.08}
  .heroN .hN-o b:not(.hN-do){font-size:1.08em}
  .heroN .hN-s{padding-right:0}
 }
