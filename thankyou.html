@@ -9,7 +9,7 @@
 <title>Дякуємо за покупку — Формула твого результату</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap&subset=cyrillic" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Montserrat:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
 <style>
   :root {
     --cream: #F9F5EE;
@@ -24,8 +24,8 @@
   body {
     background: var(--cream);
     color: var(--brown);
-    font-family: "Jost", "Helvetica Neue", Arial, sans-serif;
-    font-size: 18px;
+    font-family: 'Montserrat','Helvetica Neue',Arial,sans-serif;
+    font-size: 17px;
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     display: flex;
@@ -61,13 +61,16 @@
   }
   h1 {
     margin: 0 0 22px;
-    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-    font-weight: 700;
-    font-size: clamp(36px, 7vw, 52px);
-    line-height: 1.12;
+    font-family: 'Oswald','Arial Narrow',Arial,sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: .015em;
+    text-wrap: balance;
+    font-size: clamp(34px, 7vw, 50px);
+    line-height: 1.18;
     color: var(--burgundy);
   }
-  .lead { margin: 0 0 36px; font-size: 19px; }
+  .lead { margin: 0 0 36px; font-size: 18px; }
   .note {
     background: var(--beige);
     border: 1px solid var(--line);
@@ -75,15 +78,16 @@
     padding: 28px 24px;
     margin: 0 0 40px;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 18px;
   }
   .btn {
     display: inline-block;
     background: var(--burgundy);
     color: var(--white);
     text-decoration: none;
-    font-weight: 600;
-    font-size: 19px;
+    font-weight: 500;
+    font-size: clamp(15px,3.9vw,17px);
+    letter-spacing: .01em;
     padding: 20px 44px;
     border-radius: 6px;
     transition: background .2s;
@@ -100,7 +104,7 @@
   }
 </style>
 <script id="meta-pixel">
-/* Meta Pixel: той самий піксель, що й на головній сторінці. PageView + Purchase (296 грн). Телефон і email не передаються. */
+/* Meta Pixel: той самий піксель, що й на головній сторінці. PageView + Purchase (396 грн). Телефон і email не передаються. */
 (function(){
 var ID="1173415038742062";
 !function(f,b,e,v,n,t,s)
@@ -114,7 +118,7 @@ fbq('set','autoConfig',false,ID);
 fbq('init',ID);
 fbq('track','PageView');
 /* Після невдалої оплати WayForPay-повернення веде на ?s=failed: Purchase тоді не відправляємо */
-if(!/[?&]s=failed(&|$)/.test(location.search)){fbq('track','Purchase',{value:296,currency:'UAH'});}
+if(!/[?&]s=failed(&|$)/.test(location.search)){fbq('track','Purchase',{value:396,currency:'UAH'});}
 })();
 </script>
 </head>
